@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String  @unique
+  username  String  @unique
+  phone     String
+  role      Role    @default(GUEST)
+  avatar String?
+  bio       String?
+  cratedAt    DateTime    @default(now())
+  listings    Listing[]
+  bookings    Booking[]
+}
+model Listing{
+   id        Int     @id @default(autoincrement())
+  title      String
+  description     String
+  location  String
+  pricePerNight     Float
+  guests      Int
+  type ListingType
+  amenities       String[]
+  rating     Float?
+  cratedAt  DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  host     User  @relation(fields:[hostId],references:[id])
+  hostId   Int
+  bookings   Booking[] 
+}
+
+model Booking{
+  id        Int     @id @default(autoincrement())
+  chekin      DateTime
+  checkout    DateTime
+  totalPrice     Float
+  status  BookingStatus
+  cratedAt  DateTime  @default(now())
+  guest     User  @relation(fields:[guestId],references:[id])
+  guestId   Int
+  listing   Listing  @relation(fields:[listingId],references:[id])
+  listingId   Int 
+}
+
+enum BookingStatus{
+  PENDING
+  COMFIRMED
+  CANCELLED
+}
+enum ListingType{
+  APARTMENT
+  HOUSE
+  VILLA
+  CABIN
+}
+enum Role{
+  HOST
+  GUEST
+}

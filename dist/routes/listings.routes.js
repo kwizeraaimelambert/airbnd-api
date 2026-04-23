@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllListings, getListingById, createListing, updateListing, deleteListing } from "../controllers/listings.controller.js";
+import { getAllListings, getListingById, createListing, updateListing, deleteListing, } from "../controllers/listings.controller.js";
 const router = Router();
 router.get("/", getAllListings);
 router.get("/:id", getListingById);

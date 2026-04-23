@@ -1,51 +1,114 @@
-import { listings } from "../models/listing.model.js";
-export function getAllListings(req, res) {
-    res.json(listings);
+import prisma from "../config/prisma.js";
+function isKnownPrismaError(err) {
+    return (typeof err === "object" &&
+        err !== null &&
+        "code" in err);
 }
-export function getListingById(req, res) {
+export async function getAllListings(req, res) {
+    const { location, type, minPrice, maxPrice, guests } = req.query;
+    const listings = await prisma.listing.findMany({
+        where: {
+            ...(location && { location: { contains: location, mode: "insensitive" } }),
+            ...(type && { type: type }),
+            ...(guests && { guests: { gte: parseInt(guests) } }),
+            ...(minPrice || maxPrice) && {
+                pricePerNight: {
+                    ...(minPrice && { gte: parseFloat(minPrice) }),
+                    ...(maxPrice && { lte: parseFloat(maxPrice) }),
+                },
+            },
+        },
+        include: { host: { select: { id: true, name: true, avatar: true } } },
+    });
+    return res.json(listings);
+}
+export async function getListingById(req, res) {
     const id = parseInt(req.params.id);
-    const listing = listings.find(l => l.id === id);
+    const listing = await prisma.listing.findUnique({
+        where: { id },
+        include: {
+            host: { select: { id: true, name: true, avatar: true } },
+            bookings: true,
+        },
+    });
     if (!listing) {
         return res.status(404).json({ error: "Listing not found" });
     }
-    res.json(listing);
+    return res.json(listing);
 }
-export function createListing(req, res) {
-    const { title, description, location, pricePerNight, guests, type, amenities, rating, host } = req.body;
-    if (!title || !description || !location || !pricePerNight || !guests || !type || !amenities || !rating || !host) {
-        return res.status(400).json({ error: "Missing required fields" });
+export async function getListingsByHost(req, res) {
+    const hostId = parseInt(req.params.hostId);
+    const host = await prisma.user.findUnique({ where: { id: hostId } });
+    if (!host) {
+        return res.status(404).json({ error: "Host not found" });
     }
-    const newListing = {
-        id: listings.length + 1,
-        title,
-        description,
-        location,
-        pricePerNight,
-        guests,
-        type,
-        amenities,
-        rating,
-        host
-    };
-    listings.push(newListing);
-    res.status(201).json(newListing);
+    const listings = await prisma.listing.findMany({
+        where: { hostId },
+        include: { bookings: true },
+    });
+    return res.json(listings);
 }
-export function updateListing(req, res) {
+export async function createListing(req, res) {
+    const { title, description, location, pricePerNight, guests, type, amenities, hostId } = req.body;
+    if (!title || !description || !location || !pricePerNight || !guests || !type || !hostId) {
+        return res.status(400).json({ error: "Missing required fields: title, description, location, pricePerNight, guests, type, hostId" });
+    }
+    try {
+        const host = await prisma.user.findUnique({ where: { id: hostId } });
+        if (!host) {
+            return res.status(404).json({ error: "Host not found" });
+        }
+        const listing = await prisma.listing.create({
+            data: {
+                title,
+                description,
+                location,
+                pricePerNight,
+                guests,
+                type,
+                amenities: amenities ?? [],
+                hostId,
+            },
+        });
+        return res.status(201).json(listing);
+    }
+    catch (err) {
+        if (isKnownPrismaError(err) && err.code === "P2003") {
+            return res.status(404).json({ error: "Host not found" });
+        }
+        throw err;
+    }
+}
+export async function updateListing(req, res) {
     const id = parseInt(req.params.id);
-    const listingIndex = listings.findIndex(l => l.id === id);
-    if (listingIndex === -1) {
+    const existing = await prisma.listing.findUnique({ where: { id } });
+    if (!existing) {
         return res.status(404).json({ error: "Listing not found" });
     }
-    listings[listingIndex] = { ...listings[listingIndex], ...req.body };
-    res.json(listings[listingIndex]);
+    const { title, description, location, pricePerNight, guests, type, amenities, rating } = req.body;
+    const updated = await prisma.listing.update({
+        where: { id },
+        data: {
+            ...(title && { title }),
+            ...(description && { description }),
+            ...(location && { location }),
+            ...(pricePerNight && { pricePerNight }),
+            ...(guests && { guests }),
+            ...(type && { type }),
+            ...(amenities && { amenities }),
+            ...(rating !== undefined && { rating }),
+            updatedAt: new Date(),
+        },
+    });
+    return res.json(updated);
 }
-export function deleteListing(req, res) {
+export async function deleteListing(req, res) {
     const id = parseInt(req.params.id);
-    const listingIndex = listings.findIndex(l => l.id === id);
-    if (listingIndex === -1) {
+    const existing = await prisma.listing.findUnique({ where: { id } });
+    if (!existing) {
         return res.status(404).json({ error: "Listing not found" });
     }
-    listings.splice(listingIndex, 1);
-    res.status(200).json({ message: "Listing deleted successfully" });
+    await prisma.listing.delete({ where: { id } });
+    return res.status(200).json({ message: "Listing deleted successfully" });
 }
 //# sourceMappingURL=listings.controller.js.map
