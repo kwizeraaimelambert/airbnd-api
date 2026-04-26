@@ -16,6 +16,10 @@ model User {
   role      Role    @default(GUEST)
   avatar String?
   bio       String?
+  password   String  @default("")
+  updatedAt   DateTime  @default(now())
+  resetToken   String?
+  restTokenExpiry   DateTime?
   cratedAt    DateTime    @default(now())
   listings    Listing[]
   bookings    Booking[]
@@ -62,6 +66,7 @@ enum ListingType{
   CABIN
 }
 enum Role{
+  ADMIN
   HOST
   GUEST
 }
