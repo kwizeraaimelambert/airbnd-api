@@ -76,6 +76,7 @@ export const ListingScalarFieldEnum = {
     guests: 'guests',
     type: 'type',
     amenities: 'amenities',
+    photos: 'photos',
     rating: 'rating',
     cratedAt: 'cratedAt',
     updatedAt: 'updatedAt',

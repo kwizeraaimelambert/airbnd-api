@@ -63,6 +63,7 @@ export declare const ListingScalarFieldEnum: {
     readonly guests: "guests";
     readonly type: "type";
     readonly amenities: "amenities";
+    readonly photos: "photos";
     readonly rating: "rating";
     readonly cratedAt: "cratedAt";
     readonly updatedAt: "updatedAt";

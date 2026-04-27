@@ -1,6 +1,8 @@
 import prisma from "../config/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { sendEmail } from "../config/email.js";
+import { welcomeEmail } from "../templates/emails.js";
 export async function register(req, res) {
     const { name, email, username, phone, password, role } = req.body;
     if (!name || !email || !username || !phone || !password) {
@@ -20,6 +22,7 @@ export async function register(req, res) {
         data: { name: name, email: email, username: username, phone: phone, password: hashedPassword, role: role ?? "GUEST" },
     });
     const { password: _, ...userWithoutPassword } = user;
+    await sendEmail(email, "Welcome to Airbnb!", welcomeEmail(name));
     res.status(201).json(userWithoutPassword);
 }
 export async function login(req, res) {

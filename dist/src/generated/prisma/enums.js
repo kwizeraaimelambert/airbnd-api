@@ -19,6 +19,7 @@ export const ListingType = {
     CABIN: 'CABIN'
 };
 export const Role = {
+    ADMIN: 'ADMIN',
     HOST: 'HOST',
     GUEST: 'GUEST'
 };

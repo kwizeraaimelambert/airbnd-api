@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 function isKnownPrismaError(err) {
     return (typeof err === "object" &&
         err !== null &&
@@ -116,5 +117,42 @@ export async function deleteListing(req, res) {
     }
     await prisma.listing.delete({ where: { id } });
     return res.status(200).json({ message: "Listing deleted successfully" });
+}
+export async function uploadImages(req, res) {
+    try {
+        const id = parseInt(req.params["id"]);
+        console.log(req.files);
+        const files = req.files;
+        // Check files
+        if (!files || files.length === 0) {
+            return res.status(400).json({ error: "No files uploaded" });
+        }
+        // Check listing
+        const listing = await prisma.listing.findUnique({ where: { id } });
+        if (!listing) {
+            return res.status(404).json({ error: "Listing not found" });
+        }
+        // Upload all images to Cloudinary
+        const uploads = await Promise.all(files.map(file => uploadToCloudinary(file.buffer, "airbnb/listings")));
+        // Extract URLs
+        const imageUrls = uploads.map((img) => img.url);
+        // If your DB stores photos as array (recommended)
+        const updated = await prisma.listing.update({
+            where: { id },
+            data: {
+                photos: {
+                    push: imageUrls, // append new images
+                },
+            },
+        });
+        res.json({
+            message: "Images uploaded successfully",
+            images: imageUrls,
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Upload failed" });
+    }
 }
 //# sourceMappingURL=listings.controller.js.map

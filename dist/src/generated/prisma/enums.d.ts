@@ -12,6 +12,7 @@ export declare const ListingType: {
 };
 export type ListingType = (typeof ListingType)[keyof typeof ListingType];
 export declare const Role: {
+    readonly ADMIN: "ADMIN";
     readonly HOST: "HOST";
     readonly GUEST: "GUEST";
 };

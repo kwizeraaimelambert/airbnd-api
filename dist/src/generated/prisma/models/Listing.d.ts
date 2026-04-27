@@ -62,6 +62,7 @@ export type ListingCountAggregateOutputType = {
     guests: number;
     type: number;
     amenities: number;
+    photos: number;
     rating: number;
     cratedAt: number;
     updatedAt: number;
@@ -117,6 +118,7 @@ export type ListingCountAggregateInputType = {
     guests?: true;
     type?: true;
     amenities?: true;
+    photos?: true;
     rating?: true;
     cratedAt?: true;
     updatedAt?: true;
@@ -208,6 +210,7 @@ export type ListingGroupByOutputType = {
     guests: number;
     type: $Enums.ListingType;
     amenities: string[];
+    photos: string[];
     rating: number | null;
     cratedAt: Date;
     updatedAt: Date;
@@ -233,6 +236,7 @@ export type ListingWhereInput = {
     guests?: Prisma.IntFilter<"Listing"> | number;
     type?: Prisma.EnumListingTypeFilter<"Listing"> | $Enums.ListingType;
     amenities?: Prisma.StringNullableListFilter<"Listing">;
+    photos?: Prisma.StringNullableListFilter<"Listing">;
     rating?: Prisma.FloatNullableFilter<"Listing"> | number | null;
     cratedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
@@ -249,6 +253,7 @@ export type ListingOrderByWithRelationInput = {
     guests?: Prisma.SortOrder;
     type?: Prisma.SortOrder;
     amenities?: Prisma.SortOrder;
+    photos?: Prisma.SortOrder;
     rating?: Prisma.SortOrderInput | Prisma.SortOrder;
     cratedAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -268,6 +273,7 @@ export type ListingWhereUniqueInput = Prisma.AtLeast<{
     guests?: Prisma.IntFilter<"Listing"> | number;
     type?: Prisma.EnumListingTypeFilter<"Listing"> | $Enums.ListingType;
     amenities?: Prisma.StringNullableListFilter<"Listing">;
+    photos?: Prisma.StringNullableListFilter<"Listing">;
     rating?: Prisma.FloatNullableFilter<"Listing"> | number | null;
     cratedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
@@ -284,6 +290,7 @@ export type ListingOrderByWithAggregationInput = {
     guests?: Prisma.SortOrder;
     type?: Prisma.SortOrder;
     amenities?: Prisma.SortOrder;
+    photos?: Prisma.SortOrder;
     rating?: Prisma.SortOrderInput | Prisma.SortOrder;
     cratedAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -306,6 +313,7 @@ export type ListingScalarWhereWithAggregatesInput = {
     guests?: Prisma.IntWithAggregatesFilter<"Listing"> | number;
     type?: Prisma.EnumListingTypeWithAggregatesFilter<"Listing"> | $Enums.ListingType;
     amenities?: Prisma.StringNullableListFilter<"Listing">;
+    photos?: Prisma.StringNullableListFilter<"Listing">;
     rating?: Prisma.FloatNullableWithAggregatesFilter<"Listing"> | number | null;
     cratedAt?: Prisma.DateTimeWithAggregatesFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Listing"> | Date | string;
@@ -319,6 +327,7 @@ export type ListingCreateInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -334,6 +343,7 @@ export type ListingUncheckedCreateInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -348,6 +358,7 @@ export type ListingUpdateInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -363,6 +374,7 @@ export type ListingUncheckedUpdateInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -378,6 +390,7 @@ export type ListingCreateManyInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -391,6 +404,7 @@ export type ListingUpdateManyMutationInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -404,6 +418,7 @@ export type ListingUncheckedUpdateManyInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -433,6 +448,7 @@ export type ListingCountOrderByAggregateInput = {
     guests?: Prisma.SortOrder;
     type?: Prisma.SortOrder;
     amenities?: Prisma.SortOrder;
+    photos?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     cratedAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
@@ -523,6 +539,9 @@ export type ListingUncheckedUpdateManyWithoutHostNestedInput = {
 export type ListingCreateamenitiesInput = {
     set: string[];
 };
+export type ListingCreatephotosInput = {
+    set: string[];
+};
 export type FloatFieldUpdateOperationsInput = {
     set?: number;
     increment?: number;
@@ -534,6 +553,10 @@ export type EnumListingTypeFieldUpdateOperationsInput = {
     set?: $Enums.ListingType;
 };
 export type ListingUpdateamenitiesInput = {
+    set?: string[];
+    push?: string | string[];
+};
+export type ListingUpdatephotosInput = {
     set?: string[];
     push?: string | string[];
 };
@@ -564,6 +587,7 @@ export type ListingCreateWithoutHostInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -578,6 +602,7 @@ export type ListingUncheckedCreateWithoutHostInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -616,6 +641,7 @@ export type ListingScalarWhereInput = {
     guests?: Prisma.IntFilter<"Listing"> | number;
     type?: Prisma.EnumListingTypeFilter<"Listing"> | $Enums.ListingType;
     amenities?: Prisma.StringNullableListFilter<"Listing">;
+    photos?: Prisma.StringNullableListFilter<"Listing">;
     rating?: Prisma.FloatNullableFilter<"Listing"> | number | null;
     cratedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
@@ -629,6 +655,7 @@ export type ListingCreateWithoutBookingsInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -643,6 +670,7 @@ export type ListingUncheckedCreateWithoutBookingsInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -669,6 +697,7 @@ export type ListingUpdateWithoutBookingsInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -683,6 +712,7 @@ export type ListingUncheckedUpdateWithoutBookingsInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -697,6 +727,7 @@ export type ListingCreateManyHostInput = {
     guests: number;
     type: $Enums.ListingType;
     amenities?: Prisma.ListingCreateamenitiesInput | string[];
+    photos?: Prisma.ListingCreatephotosInput | string[];
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
@@ -709,6 +740,7 @@ export type ListingUpdateWithoutHostInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -723,6 +755,7 @@ export type ListingUncheckedUpdateWithoutHostInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -737,6 +770,7 @@ export type ListingUncheckedUpdateManyWithoutHostInput = {
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     type?: Prisma.EnumListingTypeFieldUpdateOperationsInput | $Enums.ListingType;
     amenities?: Prisma.ListingUpdateamenitiesInput | string[];
+    photos?: Prisma.ListingUpdatephotosInput | string[];
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -774,6 +808,7 @@ export type ListingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     guests?: boolean;
     type?: boolean;
     amenities?: boolean;
+    photos?: boolean;
     rating?: boolean;
     cratedAt?: boolean;
     updatedAt?: boolean;
@@ -791,6 +826,7 @@ export type ListingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     guests?: boolean;
     type?: boolean;
     amenities?: boolean;
+    photos?: boolean;
     rating?: boolean;
     cratedAt?: boolean;
     updatedAt?: boolean;
@@ -806,6 +842,7 @@ export type ListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
     guests?: boolean;
     type?: boolean;
     amenities?: boolean;
+    photos?: boolean;
     rating?: boolean;
     cratedAt?: boolean;
     updatedAt?: boolean;
@@ -821,12 +858,13 @@ export type ListingSelectScalar = {
     guests?: boolean;
     type?: boolean;
     amenities?: boolean;
+    photos?: boolean;
     rating?: boolean;
     cratedAt?: boolean;
     updatedAt?: boolean;
     hostId?: boolean;
 };
-export type ListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "location" | "pricePerNight" | "guests" | "type" | "amenities" | "rating" | "cratedAt" | "updatedAt" | "hostId", ExtArgs["result"]["listing"]>;
+export type ListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "location" | "pricePerNight" | "guests" | "type" | "amenities" | "photos" | "rating" | "cratedAt" | "updatedAt" | "hostId", ExtArgs["result"]["listing"]>;
 export type ListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     host?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     bookings?: boolean | Prisma.Listing$bookingsArgs<ExtArgs>;
@@ -853,6 +891,7 @@ export type $ListingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         guests: number;
         type: $Enums.ListingType;
         amenities: string[];
+        photos: string[];
         rating: number | null;
         cratedAt: Date;
         updatedAt: Date;
@@ -1221,6 +1260,7 @@ export interface ListingFieldRefs {
     readonly guests: Prisma.FieldRef<"Listing", 'Int'>;
     readonly type: Prisma.FieldRef<"Listing", 'ListingType'>;
     readonly amenities: Prisma.FieldRef<"Listing", 'String[]'>;
+    readonly photos: Prisma.FieldRef<"Listing", 'String[]'>;
     readonly rating: Prisma.FieldRef<"Listing", 'Float'>;
     readonly cratedAt: Prisma.FieldRef<"Listing", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"Listing", 'DateTime'>;
