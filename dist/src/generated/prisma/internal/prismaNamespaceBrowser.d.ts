@@ -29,6 +29,7 @@ export declare const ModelName: {
     readonly User: "User";
     readonly Listing: "Listing";
     readonly Booking: "Booking";
+    readonly Review: "Review";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -76,11 +77,20 @@ export declare const BookingScalarFieldEnum: {
     readonly checkout: "checkout";
     readonly totalPrice: "totalPrice";
     readonly status: "status";
-    readonly cratedAt: "cratedAt";
+    readonly createdAt: "createdAt";
     readonly guestId: "guestId";
     readonly listingId: "listingId";
 };
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum];
+export declare const ReviewScalarFieldEnum: {
+    readonly id: "id";
+    readonly rating: "rating";
+    readonly comment: "comment";
+    readonly userId: "userId";
+    readonly listingId: "listingId";
+    readonly createdAt: "createdAt";
+};
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

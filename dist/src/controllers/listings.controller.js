@@ -155,4 +155,21 @@ export async function uploadImages(req, res) {
         res.status(500).json({ error: "Upload failed" });
     }
 }
+export async function deleteImage(req, res) {
+    const id = parseInt(req.params["id"]);
+    const url = req.params["photoId"];
+    if (!url) {
+        return res.status(400).json({ error: "Image URL is required" });
+    }
+    const listing = await prisma.listing.findUnique({ where: { id } });
+    if (!listing) {
+        return res.status(404).json({ error: "Listing not found" });
+    }
+    // Remove the URL from the photos array in the database
+    const updated = await prisma.listing.update({
+        where: { id },
+        data: { photos: listing.photos.filter(photo => photo !== url) },
+    });
+    res.json({ message: "Image deleted successfully" });
+}
 //# sourceMappingURL=listings.controller.js.map

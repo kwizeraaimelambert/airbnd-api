@@ -150,6 +150,17 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get booking(): Prisma.BookingDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    /**
+     * `prisma.review`: Exposes CRUD operations for the **Review** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Reviews
+      * const reviews = await prisma.review.findMany()
+      * ```
+      */
+    get review(): Prisma.ReviewDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(): PrismaClientConstructor;
 //# sourceMappingURL=class.d.ts.map

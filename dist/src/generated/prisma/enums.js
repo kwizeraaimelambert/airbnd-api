@@ -9,7 +9,7 @@
 */
 export const BookingStatus = {
     PENDING: 'PENDING',
-    COMFIRMED: 'COMFIRMED',
+    CONFIRMED: 'CONFIRMED',
     CANCELLED: 'CANCELLED'
 };
 export const ListingType = {

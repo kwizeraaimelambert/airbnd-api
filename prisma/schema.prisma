@@ -8,65 +8,81 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  name      String
-  email     String  @unique
-  username  String  @unique
-  phone     String
-  role      Role    @default(GUEST)
-  avatar String?
-  bio       String?
-  password   String  @default("")
-  updatedAt   DateTime  @default(now())
-  resetToken   String?
-  restTokenExpiry   DateTime?
-  cratedAt    DateTime    @default(now())
-  listings    Listing[]
-  bookings    Booking[]
-}
-model Listing{
-   id        Int     @id @default(autoincrement())
-  title      String
-  description     String
-  location  String
-  pricePerNight     Float
-  guests      Int
-  type ListingType
-  amenities       String[]
-  photos     String[]
-  rating     Float?
-  cratedAt  DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-  host     User  @relation(fields:[hostId],references:[id])
-  hostId   Int
-  bookings   Booking[] 
+  id              Int       @id @default(autoincrement())
+  name            String
+  email           String    @unique
+  username        String    @unique
+  phone           String
+  role            Role      @default(GUEST)
+  avatar          String?
+  bio             String?
+  password        String    @default("")
+  updatedAt       DateTime  @default(now())
+  resetToken      String?
+  restTokenExpiry DateTime?
+  cratedAt        DateTime  @default(now())
+  listings        Listing[]
+  bookings        Booking[]
+  reviews         Review[]
 }
 
-model Booking{
-  id        Int     @id @default(autoincrement())
-  chekin      DateTime
-  checkout    DateTime
-  totalPrice     Float
-  status  BookingStatus
-  cratedAt  DateTime  @default(now())
-  guest     User  @relation(fields:[guestId],references:[id])
-  guestId   Int
-  listing   Listing  @relation(fields:[listingId],references:[id])
-  listingId   Int 
+model Listing {
+  id            Int         @id @default(autoincrement())
+  title         String
+  description   String
+  location      String
+  pricePerNight Float
+  guests        Int
+  type          ListingType
+  amenities     String[]
+  photos        String[]
+  rating        Float?
+  cratedAt      DateTime    @default(now())
+  updatedAt     DateTime    @default(now())
+  host          User        @relation(fields: [hostId], references: [id])
+  hostId        Int
+  bookings      Booking[]
+  reviews       Review[]
 }
 
-enum BookingStatus{
+model Booking {
+  id         Int           @id @default(autoincrement())
+  chekin     DateTime
+  checkout   DateTime
+  totalPrice Float
+  status     BookingStatus
+  createdAt  DateTime      @default(now())
+  guest      User          @relation(fields: [guestId], references: [id])
+  guestId    Int
+  listing    Listing       @relation(fields: [listingId], references: [id])
+  listingId  Int
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId Int
+  createdAt DateTime @default(now())
+}
+
+enum BookingStatus {
   PENDING
-  COMFIRMED
+  CONFIRMED
   CANCELLED
 }
-enum ListingType{
+
+enum ListingType {
   APARTMENT
   HOUSE
   VILLA
   CABIN
 }
-enum Role{
+
+enum Role {
   ADMIN
   HOST
   GUEST

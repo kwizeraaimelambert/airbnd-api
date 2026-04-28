@@ -36,4 +36,9 @@ export type Listing = Prisma.ListingModel;
  *
  */
 export type Booking = Prisma.BookingModel;
+/**
+ * Model Review
+ *
+ */
+export type Review = Prisma.ReviewModel;
 //# sourceMappingURL=client.d.ts.map

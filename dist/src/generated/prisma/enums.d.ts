@@ -1,6 +1,6 @@
 export declare const BookingStatus: {
     readonly PENDING: "PENDING";
-    readonly COMFIRMED: "COMFIRMED";
+    readonly CONFIRMED: "CONFIRMED";
     readonly CANCELLED: "CANCELLED";
 };
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus];
