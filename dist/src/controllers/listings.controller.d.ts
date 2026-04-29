@@ -8,4 +8,5 @@ export declare function updateListing(req: Request, res: Response): Promise<Resp
 export declare function deleteListing(req: AuthRequest, res: Response): Promise<Response<any, Record<string, any>>>;
 export declare function uploadImages(req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined>;
 export declare function deleteImage(req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined>;
+export declare function getListingStats(req: Request, res: Response): Promise<Response<any, Record<string, any>>>;
 //# sourceMappingURL=listings.controller.d.ts.map

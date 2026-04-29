@@ -19,7 +19,7 @@
  *           type: integer
  *         buildingType:
  *           type: string
- *           enum: [entire_place, private_room, shared_room]
+ *           enum: [Apartment, House, Villa, Cabin]
  *         amenities:
  *           type: array
  *           items:

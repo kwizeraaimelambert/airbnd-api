@@ -12,7 +12,7 @@
  *          example: Alice
  *        email:
  *          type: string
- *          example:alice@gmail.com
+ *          example: alice@gmail.com
  *        username:
  *          type: string
  *          example: alice123
@@ -34,7 +34,7 @@
  *     properties:
  *        email:
  *          type: string
- *          example:alice@gmail.com
+ *          example: alice@gmail.com
  *        password:
  *          type: string
  *          example: secret123

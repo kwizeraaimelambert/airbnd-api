@@ -60,7 +60,7 @@ export async function getBookingsByListing(req, res) {
     });
     return res.json(bookings);
 }
-export async function createBooking(req, res) {
+export async function createBooking(req, res, next) {
     const { checkin, checkout, guestId, listingId } = req.body;
     if (!checkin || !checkout || !guestId || !listingId) {
         return res.status(400).json({ error: "Missing required fields: checkin, checkout, guestId, listingId" });
@@ -82,38 +82,47 @@ export async function createBooking(req, res) {
             return res.status(404).json({ error: "Guest not found" });
         if (!listing)
             return res.status(404).json({ error: "Listing not found" });
-        // Check for conflicting bookings on the same listing
-        const conflict = await prisma.booking.findFirst({
-            where: {
-                listingId,
-                status: { not: "CANCELLED" },
-                AND: [
-                    { chekin: { lt: checkoutDate } },
-                    { checkout: { gt: checkinDate } },
-                ],
-            },
-        });
-        if (conflict) {
-            return res.status(409).json({ error: "Listing is already booked for the selected dates" });
-        }
-        const totalPrice = calculateTotalPrice(checkinDate, checkoutDate, listing.pricePerNight);
-        const booking = await prisma.booking.create({
-            data: {
-                chekin: checkinDate,
-                checkout: checkoutDate,
-                totalPrice,
-                status: "PENDING",
-                guestId,
-                listingId,
-            },
+        // Use interactive transaction for atomic conflict check + booking creation
+        const booking = await prisma.$transaction(async (tx) => {
+            // Check for conflicting bookings on the same listing
+            const conflict = await tx.booking.findFirst({
+                where: {
+                    listingId,
+                    status: { not: "CANCELLED" },
+                    AND: [
+                        { chekin: { lt: checkoutDate } },
+                        { checkout: { gt: checkinDate } },
+                    ],
+                },
+            });
+            if (conflict) {
+                // Throw a custom error code for conflict
+                const conflictError = new Error("BOOKING_CONFLICT");
+                conflictError.code = "BOOKING_CONFLICT";
+                throw conflictError;
+            }
+            const totalPrice = calculateTotalPrice(checkinDate, checkoutDate, listing.pricePerNight);
+            return tx.booking.create({
+                data: {
+                    chekin: checkinDate,
+                    checkout: checkoutDate,
+                    totalPrice,
+                    status: "PENDING",
+                    guestId,
+                    listingId,
+                },
+            });
         });
         return res.status(201).json(booking);
     }
     catch (err) {
+        if (err.code === "BOOKING_CONFLICT") {
+            return res.status(409).json({ error: "Listing is already booked for the selected dates" });
+        }
         if (isKnownPrismaError(err) && err.code === "P2003") {
             return res.status(404).json({ error: "Guest or listing not found" });
         }
-        throw err;
+        return next(err);
     }
 }
 export async function updateBookingStatus(req, res) {

@@ -115,7 +115,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/User'
  *       401:
- *         description: No token provided or token is invalid
+ *         description: Unauthorized - missing or invalid token
  */
 router.get("/", authenticate, getAllUsers);
 /**
@@ -258,6 +258,28 @@ router.delete("/:id", deleteUser);
  *         description: Unauthorized
  */
 router.post("/:id/avatar", authenticate, upload.single("image"), uploadAvatar);
+/**
+ * @swagger
+ * /users/{id}/avatar:
+ *   delete:
+ *     summary: Delete user avatar
+ *     tags: [Users]
+ *     security:
+ *      - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *     schema:
+ *       type: integer
+ *     responses:
+ *      200:
+ *        description: Avatar deleted successfully
+ *      404:
+ *        description: User not found
+ *      401:
+ *        description: Unauthorized
+ */
 router.delete("/:id/avatar", authenticate, deleteAvatar);
 export default router;
 //# sourceMappingURL=users.routes.js.map

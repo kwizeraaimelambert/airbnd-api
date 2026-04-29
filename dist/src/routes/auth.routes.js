@@ -15,7 +15,7 @@ import { authenticate } from "../middlewares/auth.middleware.js";
  *          example: Alice
  *        email:
  *          type: string
- *          example:alice@gmail.com
+ *          example: alice@gmail.com
  *        username:
  *          type: string
  *          example: alice123
@@ -37,7 +37,7 @@ import { authenticate } from "../middlewares/auth.middleware.js";
  *     properties:
  *        email:
  *          type: string
- *          example:alice@gmail.com
+ *          example: alice@gmail.com
  *        password:
  *          type: string
  *          example: secret123
@@ -97,9 +97,110 @@ router.post("/register", register); // public
  *         description: Invalid credentials
  */
 router.post("/login", login); // public
-router.get("/me", authenticate, getMe); // protected
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     summary: Get current logged-in user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Current user data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/me", authenticate, getMe);
+/**
+ * @swagger
+ * /auth/change-password:
+ *   post:
+ *     summary: Change user password
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [currentPassword, newPassword]
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 example: oldpassword123
+ *               newPassword:
+ *                 type: string
+ *                 example: newpassword456
+ *     responses:
+ *       200:
+ *         description: Password changed successfully
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized or wrong current password
+ */
 router.post("/change-password", authenticate, changePassword); // protected
+/**
+ * @swagger
+ * /auth/forgot-password:
+ *   post:
+ *     summary: Request password reset
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email]
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: alice@gmail.com
+ *     responses:
+ *       200:
+ *         description: Reset link sent to email
+ *       404:
+ *         description: User not found
+ */
 router.post("/forgot-password", forgotPassword); // public
+/**
+ * @swagger
+ * /auth/reset-password/{token}:
+ *   post:
+ *     summary: Reset password using token
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         description: Password reset token
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [newPassword]
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 example: newpassword123
+ *     responses:
+ *       200:
+ *         description: Password reset successfully
+ *       400:
+ *         description: Invalid or expired token
+ */
 router.post("/reset-password/:token", resetPassword); // public
 export default router;
 //# sourceMappingURL=auth.routes.js.map

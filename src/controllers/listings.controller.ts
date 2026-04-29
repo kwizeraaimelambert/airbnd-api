@@ -209,3 +209,24 @@ export async function deleteImage(req: Request, res: Response) {
   });
   res.json({ message: "Image deleted successfully" });
 }
+
+export async function getListingStats(req: Request, res: Response) {
+  try {
+    const stats = await prisma.$queryRaw`
+      SELECT 
+        location,
+        COUNT(*) as total_listings,
+        AVG(price_per_night) as avg_price,
+        MIN(price_per_night) as min_price,
+        MAX(price_per_night) as max_price,
+        SUM(guests) as total_capacity
+      FROM "Listing"
+      GROUP BY location
+      ORDER BY total_listings DESC
+    `;
+    return res.json(stats);
+  } catch (error) {
+    console.error("Error fetching listing stats:", error);
+    return res.status(500).json({ error: "Failed to fetch listing statistics" });
+  }
+}

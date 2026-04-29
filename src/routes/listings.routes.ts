@@ -7,6 +7,7 @@ import {
   deleteListing,
   uploadImages,
   deleteImage,
+  getListingStats,
 } from "../controllers/listings.controller.js";
 import { authenticate, requireHost } from "../middlewares/auth.middleware.js";
 import upload from "../config/multer.js";
@@ -84,6 +85,17 @@ const router = Router();
  *         description: List of listings
  */
 router.get("/", getAllListings);                              // public
+/**
+ * @swagger
+ * /listings/stats:
+ *   get:
+ *     summary: Get listing statistics grouped by location
+ *     tags: [Listings]
+ *     responses:
+ *       200:
+ *         description: Listing statistics by location
+ */
+router.get("/stats", getListingStats);                        // public
 /**
  * @swagger
  * /listings/{id}:

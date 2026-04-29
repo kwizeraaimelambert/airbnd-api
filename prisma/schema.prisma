@@ -43,6 +43,12 @@ model Listing {
   hostId        Int
   bookings      Booking[]
   reviews       Review[]
+
+  @@index([location])
+  @@index([pricePerNight])
+  @@index([type])
+  @@index([hostId])
+  @@index([type, location])
 }
 
 model Booking {
@@ -56,6 +62,10 @@ model Booking {
   guestId    Int
   listing    Listing       @relation(fields: [listingId], references: [id])
   listingId  Int
+
+  @@index([guestId])
+  @@index([listingId])
+  @@index([listingId, chekin, checkout])
 }
 
 model Review {
@@ -67,6 +77,9 @@ model Review {
   listing   Listing  @relation(fields: [listingId], references: [id])
   listingId Int
   createdAt DateTime @default(now())
+
+  @@index([listingId])
+  @@index([userId])
 }
 
 enum BookingStatus {
