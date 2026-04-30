@@ -21,8 +21,8 @@ model User {
   resetToken      String?
   restTokenExpiry DateTime?
   cratedAt        DateTime  @default(now())
-  listings        Listing[]
   bookings        Booking[]
+  listings        Listing[]
   reviews         Review[]
 }
 
@@ -39,9 +39,9 @@ model Listing {
   rating        Float?
   cratedAt      DateTime    @default(now())
   updatedAt     DateTime    @default(now())
-  host          User        @relation(fields: [hostId], references: [id])
   hostId        Int
   bookings      Booking[]
+  host          User        @relation(fields: [hostId], references: [id])
   reviews       Review[]
 
   @@index([location])
@@ -58,10 +58,10 @@ model Booking {
   totalPrice Float
   status     BookingStatus
   createdAt  DateTime      @default(now())
-  guest      User          @relation(fields: [guestId], references: [id])
   guestId    Int
-  listing    Listing       @relation(fields: [listingId], references: [id])
   listingId  Int
+  guest      User          @relation(fields: [guestId], references: [id])
+  listing    Listing       @relation(fields: [listingId], references: [id])
 
   @@index([guestId])
   @@index([listingId])
@@ -72,11 +72,11 @@ model Review {
   id        Int      @id @default(autoincrement())
   rating    Int
   comment   String
-  user      User     @relation(fields: [userId], references: [id])
   userId    Int
-  listing   Listing  @relation(fields: [listingId], references: [id])
   listingId Int
   createdAt DateTime @default(now())
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@index([listingId])
   @@index([userId])
