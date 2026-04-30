@@ -2,6 +2,7 @@ import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 const PORT = process.env.PORT || 3000;
 const URL = `http://localhost:${PORT}`;
+const PRODUCTION_URL = "https://airbnd-api.onrender.com/";
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -15,6 +16,10 @@ const options = {
                 url: URL,
                 description: "Development server",
             },
+            {
+                url: PRODUCTION_URL,
+                description: "Production server",
+            }
         ],
         components: {
             // Define the Bearer token security scheme

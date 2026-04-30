@@ -241,8 +241,8 @@ export type ListingWhereInput = {
     cratedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     hostId?: Prisma.IntFilter<"Listing"> | number;
-    host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     bookings?: Prisma.BookingListRelationFilter;
+    host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     reviews?: Prisma.ReviewListRelationFilter;
 };
 export type ListingOrderByWithRelationInput = {
@@ -259,8 +259,8 @@ export type ListingOrderByWithRelationInput = {
     cratedAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     hostId?: Prisma.SortOrder;
-    host?: Prisma.UserOrderByWithRelationInput;
     bookings?: Prisma.BookingOrderByRelationAggregateInput;
+    host?: Prisma.UserOrderByWithRelationInput;
     reviews?: Prisma.ReviewOrderByRelationAggregateInput;
 };
 export type ListingWhereUniqueInput = Prisma.AtLeast<{
@@ -280,8 +280,8 @@ export type ListingWhereUniqueInput = Prisma.AtLeast<{
     cratedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Listing"> | Date | string;
     hostId?: Prisma.IntFilter<"Listing"> | number;
-    host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     bookings?: Prisma.BookingListRelationFilter;
+    host?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     reviews?: Prisma.ReviewListRelationFilter;
 }, "id">;
 export type ListingOrderByWithAggregationInput = {
@@ -334,8 +334,8 @@ export type ListingCreateInput = {
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
-    host: Prisma.UserCreateNestedOneWithoutListingsInput;
     bookings?: Prisma.BookingCreateNestedManyWithoutListingInput;
+    host: Prisma.UserCreateNestedOneWithoutListingsInput;
     reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput;
 };
 export type ListingUncheckedCreateInput = {
@@ -367,8 +367,8 @@ export type ListingUpdateInput = {
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    host?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput;
     bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput;
+    host?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput;
     reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput;
 };
 export type ListingUncheckedUpdateInput = {
@@ -755,8 +755,8 @@ export type ListingCreateWithoutReviewsInput = {
     rating?: number | null;
     cratedAt?: Date | string;
     updatedAt?: Date | string;
-    host: Prisma.UserCreateNestedOneWithoutListingsInput;
     bookings?: Prisma.BookingCreateNestedManyWithoutListingInput;
+    host: Prisma.UserCreateNestedOneWithoutListingsInput;
 };
 export type ListingUncheckedCreateWithoutReviewsInput = {
     id?: number;
@@ -799,8 +799,8 @@ export type ListingUpdateWithoutReviewsInput = {
     rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
     cratedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    host?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput;
     bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput;
+    host?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput;
 };
 export type ListingUncheckedUpdateWithoutReviewsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -923,8 +923,8 @@ export type ListingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     cratedAt?: boolean;
     updatedAt?: boolean;
     hostId?: boolean;
-    host?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     bookings?: boolean | Prisma.Listing$bookingsArgs<ExtArgs>;
+    host?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     reviews?: boolean | Prisma.Listing$reviewsArgs<ExtArgs>;
     _count?: boolean | Prisma.ListingCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["listing"]>;
@@ -977,8 +977,8 @@ export type ListingSelectScalar = {
 };
 export type ListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "location" | "pricePerNight" | "guests" | "type" | "amenities" | "photos" | "rating" | "cratedAt" | "updatedAt" | "hostId", ExtArgs["result"]["listing"]>;
 export type ListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    host?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     bookings?: boolean | Prisma.Listing$bookingsArgs<ExtArgs>;
+    host?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     reviews?: boolean | Prisma.Listing$reviewsArgs<ExtArgs>;
     _count?: boolean | Prisma.ListingCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -991,8 +991,8 @@ export type ListingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $ListingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Listing";
     objects: {
-        host: Prisma.$UserPayload<ExtArgs>;
         bookings: Prisma.$BookingPayload<ExtArgs>[];
+        host: Prisma.$UserPayload<ExtArgs>;
         reviews: Prisma.$ReviewPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1338,8 +1338,8 @@ export interface ListingDelegate<ExtArgs extends runtime.Types.Extensions.Intern
  */
 export interface Prisma__ListingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    host<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     bookings<T extends Prisma.Listing$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    host<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     reviews<T extends Prisma.Listing$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.

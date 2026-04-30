@@ -188,8 +188,8 @@ export type ReviewWhereInput = {
     userId?: Prisma.IntFilter<"Review"> | number;
     listingId?: Prisma.IntFilter<"Review"> | number;
     createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     listing?: Prisma.XOR<Prisma.ListingScalarRelationFilter, Prisma.ListingWhereInput>;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
 };
 export type ReviewOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -198,8 +198,8 @@ export type ReviewOrderByWithRelationInput = {
     userId?: Prisma.SortOrder;
     listingId?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    user?: Prisma.UserOrderByWithRelationInput;
     listing?: Prisma.ListingOrderByWithRelationInput;
+    user?: Prisma.UserOrderByWithRelationInput;
 };
 export type ReviewWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -211,8 +211,8 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
     userId?: Prisma.IntFilter<"Review"> | number;
     listingId?: Prisma.IntFilter<"Review"> | number;
     createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
     listing?: Prisma.XOR<Prisma.ListingScalarRelationFilter, Prisma.ListingWhereInput>;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
 }, "id">;
 export type ReviewOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -242,8 +242,8 @@ export type ReviewCreateInput = {
     rating: number;
     comment: string;
     createdAt?: Date | string;
-    user: Prisma.UserCreateNestedOneWithoutReviewsInput;
     listing: Prisma.ListingCreateNestedOneWithoutReviewsInput;
+    user: Prisma.UserCreateNestedOneWithoutReviewsInput;
 };
 export type ReviewUncheckedCreateInput = {
     id?: number;
@@ -257,8 +257,8 @@ export type ReviewUpdateInput = {
     rating?: Prisma.IntFieldUpdateOperationsInput | number;
     comment?: Prisma.StringFieldUpdateOperationsInput | string;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput;
     listing?: Prisma.ListingUpdateOneRequiredWithoutReviewsNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput;
 };
 export type ReviewUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -549,8 +549,8 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     userId?: boolean;
     listingId?: boolean;
     createdAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["review"]>;
 export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -559,8 +559,8 @@ export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
     userId?: boolean;
     listingId?: boolean;
     createdAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["review"]>;
 export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -569,8 +569,8 @@ export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
     userId?: boolean;
     listingId?: boolean;
     createdAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["review"]>;
 export type ReviewSelectScalar = {
     id?: boolean;
@@ -582,22 +582,22 @@ export type ReviewSelectScalar = {
 };
 export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "comment" | "userId" | "listingId" | "createdAt", ExtArgs["result"]["review"]>;
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type ReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     listing?: boolean | Prisma.ListingDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
 export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Review";
     objects: {
-        user: Prisma.$UserPayload<ExtArgs>;
         listing: Prisma.$ListingPayload<ExtArgs>;
+        user: Prisma.$UserPayload<ExtArgs>;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -935,8 +935,8 @@ export interface ReviewDelegate<ExtArgs extends runtime.Types.Extensions.Interna
  */
 export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     listing<T extends Prisma.ListingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListingDefaultArgs<ExtArgs>>): Prisma.Prisma__ListingClient<runtime.Types.Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
